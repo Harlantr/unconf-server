@@ -1,0 +1,22 @@
+{
+  "name": "unconf-server",
+  "version": "0.0.1",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Harlantr/unconf-server.git"
+  },
+  "author": "Thomas Harlan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Harlantr/unconf-server/issues"
+  },
+  "homepage": "https://github.com/Harlantr/unconf-server#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
