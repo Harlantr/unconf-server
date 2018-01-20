@@ -1,9 +1,12 @@
 const express = require('express');
+
 const app = express();
 
-app.get('/', (req, res) => {
-  res.send('Hello world')
-})
+const eventService = require('./services/events');
+
+app.get('/events', (req, res) => {
+  res.send(eventService.getEvents());
+});
 
 app.listen(5000, () => {
   console.log('App running on port 5000');
