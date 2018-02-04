@@ -1,13 +1,22 @@
-const express = require('express');
+const app = require('./app');
+const { eventsStore } = require('./stores');
 
-const app = express();
+app.route('/events')
+  .get((req, res) => {
+    // Get all events
+    eventsStore.find({}, (err, data) => {
+      if (err) {
+        console.log(err);
+      }
+      // Send data
+      res.send(data);
+    });
+  })
+  .post((req, res) => {
+    // Add new event to the store
+    eventsStore.insert(req.body, (err, newEvent) => {
+      res.send(newEvent);
+    });
+  });
 
-const eventService = require('./services/events');
-
-app.get('/events', (req, res) => {
-  res.send(eventService.getEvents());
-});
-
-app.listen(5000, () => {
-  console.log('App running on port 5000');
-});
+app.listen(5000, () => {});
