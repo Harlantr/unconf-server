@@ -11,7 +11,7 @@ const validator = new Validator({
 });
 
 router.route('/:id')
-  // Get existing event by id
+  // Get event by id
   .get((req, res, next) => {
     eventsStore.findOne({ _id: req.params.id }, (err, data) => {
       // Throw error
@@ -27,7 +27,7 @@ router.route('/:id')
       }
     });
   })
-  // Update existing event by id
+  // Update event by id
   .put(
     // Validate against schema
     validator.validate({ body: eventSchema }),
@@ -49,6 +49,21 @@ router.route('/:id')
         }
       );
     }
-  );
+  )
+  // Delte event by id
+  .delete((req, res, next) => {
+    eventsStore.remove({ _id: req.params.id }, {}, (err, numRemoved) => {
+      // Throw error
+      if (err) next(err);
+
+      if (numRemoved) {
+        res.send();
+      } else {
+        // Throw new 404 for event not found
+        res.status(404);
+        next(new Error(`Event id ${req.params.id} not found.`));
+      }
+    });
+  });
 
 module.exports = router;
