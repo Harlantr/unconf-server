@@ -21,8 +21,7 @@ router.route('/')
       // Throw error
       if (err) next(err);
 
-      if (data) {
-        // Return data
+      if (data.length) {
         res.send(data);
       } else {
         // Throw new 404 for events not found
