@@ -8,28 +8,28 @@ const eventSchema = {
     'type',
     'difficulty',
     'startTime',
-    'room',
+    'room'
   ],
   properties: {
     creator: {
-      type: 'string',
+      type: 'string'
     },
     title: {
-      type: 'string',
+      type: 'string'
     },
     description: {
-      type: 'string',
+      type: 'string'
     },
     tags: {
-      type: 'string',
+      type: 'array'
     },
     type: {
       type: 'string',
       enum: [
         'workshop',
         'presentation',
-        'discussion',
-      ],
+        'discussion'
+      ]
     },
     difficulty: {
       type: 'string',
@@ -37,18 +37,16 @@ const eventSchema = {
         'beginner',
         'intermediate',
         'advanced',
-        'expert',
-      ],
+        'expert'
+      ]
     },
     startTime: {
-      type: 'string',
+      type: 'string'
     },
     room: {
-      type: 'string',
-    },
-  },
+      type: 'string'
+    }
+  }
 };
 
-module.exports = {
-  eventSchema,
-};
+module.exports = eventSchema;

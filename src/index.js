@@ -1,44 +1,18 @@
-const app = require('./app');
-const { Validator } = require('express-json-validator-middleware');
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
-const { eventStore } = require('./stores');
-const { eventSchema } = require('./schemas');
+const app = express();
 
-const validator = new Validator({
-  allErrors: true
-});
+// Middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 
-app.route('/events')
-  .get((req, res) => {
-    // Get all events
-    eventStore.find({}, (err, data) => {
-      if (err) {
-        console.log(err);
-      }
-      // Send data
-      res.send(data);
-    });
-  })
-  .post(validator.validate({ body: eventSchema }), (req, res) => {
-    // Add new event to the store
-    eventStore.insert(req.body, (err, newEvent) => {
-      res.send(newEvent);
-    });
-  });
+// Route handlers
+app.use('/events', require('./routes/events'));
 
 // Global error handler
-app.use((err, req, res, next) => {
-  // JSON Schema Validation
-  if (err.name === 'JsonSchemaValidationError') {
-    res.status(400);
-    res.json({
-      message: 'Invalid request',
-      validationErrors: err.validationErrors.body
-    });
-  } else {
-    // Throw error to default error handler
-    next(err);
-  }
-});
+app.use(require('./error-handler'));
 
 app.listen(5000, () => {});

@@ -5,6 +5,4 @@ const eventsStore = new DataStore({
   autoload: true
 });
 
-module.exports = {
-  eventsStore
-};
+module.exports = eventsStore;
