@@ -1,7 +1,8 @@
 const DataStore = require('nedb');
+const dataStoreLocation = require('../../constants/data-store-location');
 
 const eventsStore = new DataStore({
-  filename: './data/events.db',
+  filename: dataStoreLocation,
   autoload: true
 });
 

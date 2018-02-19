@@ -4,7 +4,7 @@ const { Validator } = require('express-json-validator-middleware');
 const router = express.Router();
 
 const eventsStore = require('../../stores/events');
-const eventSchema = require('../../schemas');
+const eventSchema = require('../../schemas/event');
 
 const validator = new Validator({
   allErrors: true
@@ -16,20 +16,32 @@ router.use(require('./id'));
 // Set up route
 router.route('/')
   // Get all events
-  .get((req, res) => {
+  .get((req, res, next) => {
     eventsStore.find({}, (err, data) => {
-      if (err) {
-        console.log(err);
+      // Throw error
+      if (err) next(err);
+
+      if (data) {
+        // Return data
+        res.send(data);
+      } else {
+        // Throw new 404 for events not found
+        res.status(404);
+        next(new Error('No events found'));
       }
-      // Send data
-      res.send(data);
     });
   })
   // Add new event to the store
-  .post(validator.validate({ body: eventSchema }), (req, res) => {
-    eventsStore.insert(req.body, (err, newEvent) => {
-      res.send(newEvent);
-    });
-  });
+  .post(
+    // Validate against schema
+    validator.validate({ body: eventSchema }),
+    (req, res, next) => {
+      eventsStore.insert(req.body, (err, newEvent) => {
+      // Throw error
+        if (err) next(err);
+        res.send(newEvent);
+      });
+    }
+  );
 
 module.exports = router;
