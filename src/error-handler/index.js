@@ -8,7 +8,8 @@ const globalErrorHandler = (err, req, res, next) => {
     });
   } else {
     // Throw error to default error handler
-    next(err);
+    res.status(500).json(err);
+    next();
   }
 };
 
