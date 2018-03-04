@@ -26,7 +26,7 @@ router.route('/')
       } else {
         // Throw new 404 for events not found
         res.status(404);
-        next(new Error('No events found'));
+        next('No events found');
       }
     });
   })
