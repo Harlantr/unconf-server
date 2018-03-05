@@ -1,3 +1,5 @@
+const conferenceConfig = require('../../constants/conference-cfg');
+
 const eventSchema = {
   type: 'object',
   required: [
@@ -44,7 +46,8 @@ const eventSchema = {
       type: 'string'
     },
     room: {
-      type: 'string'
+      type: 'string',
+      enum: conferenceConfig.roomList
     }
   }
 };
