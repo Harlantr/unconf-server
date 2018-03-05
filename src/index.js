@@ -11,6 +11,7 @@ app.use(cors());
 
 // Route handlers
 app.use('/events', require('./routes/events'));
+app.use('/conf', require('.//routes/conf'));
 
 // Global error handler
 app.use(require('./error-handler'));

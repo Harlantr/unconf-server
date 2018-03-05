@@ -1,4 +1,4 @@
-const conferenceConfig = require('../../constants/conference-cfg');
+const conferenceConfig = require('../../constants/conf-cfg');
 
 const eventSchema = {
   type: 'object',
