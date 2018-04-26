@@ -28,18 +28,18 @@ const eventSchema = {
     type: {
       type: 'string',
       enum: [
-        'workshop',
-        'presentation',
-        'discussion'
+        'Workshop',
+        'Presentation',
+        'Discussion'
       ]
     },
     difficulty: {
       type: 'string',
       enum: [
-        'beginner',
-        'intermediate',
-        'advanced',
-        'expert'
+        'Beginner',
+        'Intermediate',
+        'Advanced',
+        'Expert'
       ]
     },
     startTime: {
